@@ -1,0 +1,93 @@
+name: 24/7 Automated News Production
+
+on:
+  schedule:
+    # Run every hour, 24/7
+    - cron: '0 * * * *'
+  workflow_dispatch:
+    inputs:
+      mode:
+        description: 'Run mode'
+        required: false
+        default: 'news'
+        type: choice
+        options:
+          - news
+          - live_setup
+
+jobs:
+  news-production:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    
+    steps:
+      - name: ⬇️ Checkout repository
+        uses: actions/checkout@v4
+      
+      - name: 🐍 Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+          cache: 'pip'
+      
+      - name: 📦 Install dependencies and patch ImageMagick
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y imagemagick ffmpeg
+          
+          # Patch ImageMagick policy for video generation
+          POLICY_FILE=$(find /etc -name "policy.xml" 2>/dev/null | grep -i "ImageMagick" | head -n 1)
+          if [ -z "$POLICY_FILE" ]; then
+            echo "❌ CRITICAL: Could not find ImageMagick's policy.xml file!"
+            exit 1
+          fi
+          echo "✅ Found policy file at: $POLICY_FILE, applying patches..."
+          sudo sed -i 's/<policy domain="resource" name="width" value=".*"\/>/<policy domain="resource" name="width" value="16384"\/>/' "$POLICY_FILE"
+          sudo sed -i 's/<policy domain="resource" name="height" value=".*"\/>/<policy domain="resource" name="height" value="16384"\/>/' "$POLICY_FILE"
+          
+          echo "--- Installing Python packages ---"
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+          echo "✅ Dependencies installed."
+      
+      - name: 🔑 Restore API credentials from base64
+        run: |
+          echo "${{ secrets.CLIENT_SECRET_B64 }}" | base64 -d > client_secrets.json
+          echo "${{ secrets.CREDENTIALS_B64 }}" | base64 -d > credentials.json
+        shell: bash
+      
+      - name: 📰 Run News Production Pipeline
+        id: news-run
+        env:
+          GOOGLE_API_KEY: ${{ secrets.GOOGLE_API_KEY }}
+          PEXELS_API_KEY: ${{ secrets.PEXELS_API_KEY }}
+          NEWSAPI_KEY: ${{ secrets.NEWSAPI_KEY }}
+        run: |
+          if [ "${{ github.event.inputs.mode }}" == "live_setup" ]; then
+            echo "🔴 Setting up live stream..."
+            python news_main.py live
+          else
+            echo "📰 Running news production..."
+            python news_main.py
+          fi
+      
+      - name: 🔎 Upload artifacts for debugging
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: news-production-${{ github.run_number }}
+          path: |
+            output/*.mp4
+            output/*.wav
+            news_config.json
+          retention-days: 7
+      
+      - name: 💾 Commit and push news config changes
+        if: steps.news-run.outcome == 'success'
+        run: |
+          git config --global user.name 'github-actions[bot]'
+          git config --global user.email 'github-actions[bot]@users.noreply.github.com'
+          git add news_config.json
+          git commit -m "feat: Update news config after automated production [skip ci]" || echo "No changes to commit"
+          git push
