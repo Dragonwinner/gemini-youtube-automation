@@ -10,6 +10,8 @@ venv/
 # Output
 output/
 *.mp4
+*.wav
+*.mp3
 
 # Credentials & Sensitive Files
 client_secrets.json
@@ -18,7 +20,12 @@ credentials.json
 .env
 encoded_client_secret.txt
 encoded_credentials.txt
+client_secret_b64.txt
+credentials_b64.txt
 prompt.txt
+
+# News configuration (tracked, but listed for reference)
+# news_config.json - This should be tracked for state management
 
 # VS Code
 .vscode/
@@ -28,3 +35,8 @@ prompt.txt
 
 # Ignore all JSON key files
 gemini-youtube-automator-4ff94a2f3c8a.json
+
+# Test files (but allow test_system.py)
+test_*.py
+!test_system.py
+*_test.py
