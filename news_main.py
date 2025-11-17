@@ -105,18 +105,25 @@ def produce_news_bulletin(news_articles, bulletin_type="hourly"):
         "content": f"{datetime.datetime.now().strftime('%B %d, %Y - %I:%M %p')}\n\n{ANCHOR_NAME}"
     }
     
-    slide_path = generate_visuals(
-        output_dir=slide_dir,
-        video_type='long',
-        slide_content=slide_content,
-        slide_number=1,
-        total_slides=1
-    )
+    try:
+        slide_path = generate_visuals(
+            output_dir=slide_dir,
+            video_type='long',
+            slide_content=slide_content,
+            slide_number=1,
+            total_slides=1
+        )
+        print(f"DEBUG: Slide generated at {slide_path}, exists={Path(slide_path).exists()}")
+    except Exception as e:
+        print(f"❌ ERROR generating slide: {e}")
+        traceback.print_exc()
+        return None
     
     # Create video
     video_path = OUTPUT_DIR / f"news_bulletin_{unique_id}.mp4"
     print(f"\n🎥 Creating news video: {video_path}")
     create_video([slide_path], [wav_path], video_path, 'long')
+    print(f"DEBUG: Video creation function returned, exists={video_path.exists()}")
     
     # Generate thumbnail
     thumbnail_path = generate_visuals(

@@ -36,6 +36,12 @@ cd gemini-youtube-automation
 # Install dependencies
 pip install -r requirements.txt
 
+
+setx GOOGLE_API_KEY "your-gemini-key"
+setx NEWSAPI_KEY "your-newsapi-key"
+setx PEXELS_API_KEY "your-pexels-key"
+
+
 # Set environment variables
 export GOOGLE_API_KEY="your-gemini-api-key"
 export NEWSAPI_KEY="your-newsapi-key"

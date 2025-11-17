@@ -111,7 +111,8 @@ def test_workflow_files():
             print("   ❌ news_automation.yml not found")
             return False
         
-        with open(workflow_file, 'r') as f:
+        # Use UTF-8 to avoid Windows default encoding issues with emojis/special chars
+        with open(workflow_file, 'r', encoding='utf-8') as f:
             workflow = yaml.safe_load(f)
         
         if workflow and 'name' in workflow:
