@@ -36,6 +36,7 @@ prompt.txt
 # Ignore all JSON key files
 gemini-youtube-automator-4ff94a2f3c8a.json
 
-# Test files
+# Test files (but allow test_system.py)
 test_*.py
+!test_system.py
 *_test.py
