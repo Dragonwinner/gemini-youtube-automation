@@ -11,8 +11,13 @@ class NewsContentGenerator:
     
     def __init__(self, anchor_name="AI News Anchor"):
         self.anchor_name = anchor_name
-        genai.configure(api_key=os.environ["GOOGLE_API_KEY"])
-        self.model = genai.GenerativeModel('gemini-1.5-flash')
+        self.api_key = os.getenv("GOOGLE_API_KEY", "")
+        if self.api_key:
+            genai.configure(api_key=self.api_key)
+            self.model = genai.GenerativeModel('gemini-1.5-flash')
+        else:
+            self.model = None
+            print("⚠️ GOOGLE_API_KEY not found. Using fallback content generation.")
     
     def generate_news_bulletin(self, news_articles, bulletin_type="hourly"):
         """
@@ -21,6 +26,10 @@ class NewsContentGenerator:
         bulletin_type: 'breaking', 'hourly', 'daily', 'themed'
         """
         print(f"🤖 Generating {bulletin_type} news bulletin content...")
+        
+        if not self.model:
+            print("⚠️ No AI model available, using fallback generation")
+            return self._generate_fallback_bulletin(news_articles, bulletin_type)
         
         try:
             # Prepare articles summary for AI
@@ -78,6 +87,15 @@ class NewsContentGenerator:
         """
         print(f"🚨 Generating breaking news alert...")
         
+        if not self.model:
+            print("⚠️ No AI model available, using fallback generation")
+            return {
+                "alert_intro": "This is a breaking news alert.",
+                "story": f"{article['title']}. {article['description']}",
+                "source_credit": f"Source: {article['source']}",
+                "closing": "We will continue to monitor this story."
+            }
+        
         try:
             prompt = f"""
             You are a news anchor for a 24/7 automated news channel. Create a brief BREAKING NEWS alert script.
@@ -118,6 +136,10 @@ class NewsContentGenerator:
         Generates a script for a live news stream with multiple segments.
         """
         print(f"📺 Generating {duration_minutes}-minute live stream script...")
+        
+        if not self.model:
+            print("⚠️ No AI model available, using fallback generation")
+            return self._generate_fallback_stream(news_articles)
         
         try:
             articles_text = ""
