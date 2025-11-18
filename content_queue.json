@@ -1,0 +1,66 @@
+{
+  "items": [
+    {
+      "id": 1,
+      "article": {
+        "title": "Latest Developments in Technology",
+        "description": "Recent updates and trends in the technology sector continue to shape the industry.",
+        "content": "Industry experts discuss the evolving landscape of technology.",
+        "source": "Automated News",
+        "url": "",
+        "published_at": "2025-11-18T08:29:00.690240",
+        "image_url": "",
+        "category": "technology"
+      },
+      "priority": 3,
+      "priority_name": "NORMAL",
+      "scheduled_time": null,
+      "added_at": "2025-11-18T08:29:00.690570",
+      "status": "pending",
+      "aired_at": null
+    },
+    {
+      "id": 2,
+      "article": {
+        "title": "Technology Innovation Report",
+        "description": "New breakthroughs and innovations emerge in technology.",
+        "content": "Analysis of recent innovations and their impact on technology.",
+        "source": "Automated News",
+        "url": "",
+        "published_at": "2025-11-18T08:29:00.690254",
+        "image_url": "",
+        "category": "technology"
+      },
+      "priority": 3,
+      "priority_name": "NORMAL",
+      "scheduled_time": null,
+      "added_at": "2025-11-18T08:29:00.690815",
+      "status": "pending",
+      "aired_at": null
+    },
+    {
+      "id": 3,
+      "article": {
+        "title": "Global Technology Updates",
+        "description": "Worldwide perspective on current technology developments.",
+        "content": "International view of the latest technology news and trends.",
+        "source": "Automated News",
+        "url": "",
+        "published_at": "2025-11-18T08:29:00.690258",
+        "image_url": "",
+        "category": "technology"
+      },
+      "priority": 3,
+      "priority_name": "NORMAL",
+      "scheduled_time": null,
+      "added_at": "2025-11-18T08:29:00.691310",
+      "status": "pending",
+      "aired_at": null
+    }
+  ],
+  "breaking_news": [],
+  "metadata": {
+    "created_at": "2025-11-18T08:29:00.616333",
+    "last_updated": "2025-11-18T08:29:00.691320"
+  }
+}

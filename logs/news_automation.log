@@ -1,0 +1,12 @@
+2025-11-18 08:29:00 - news_automation.main - INFO - info:117 - Enhanced News Automation System initialized
+2025-11-18 08:29:00 - news_automation.main - INFO - info:117 - Running test cycle...
+2025-11-18 08:29:00 - news_automation.main - INFO - info:117 - ============================================================
+2025-11-18 08:29:00 - news_automation.main - INFO - info:117 - Starting news bulletin cycle
+2025-11-18 08:29:00 - news_automation.main - INFO - info:117 - ============================================================
+2025-11-18 08:29:00 - news_automation.main - INFO - info:117 - Current category: technology
+2025-11-18 08:29:00 - news_automation.main - INFO - info:117 - Fetching news for category: technology
+2025-11-18 08:29:00 - news_automation.main - INFO - info:117 - Stored 3 articles in database
+2025-11-18 08:29:00 - news_automation.main - INFO - info:117 - Creating bulletin: 20251118_082900_hourly
+2025-11-18 08:29:00 - news_automation.main - INFO - info:117 - Generating audio with TTS...
+2025-11-18 08:29:00 - news_automation.main - ERROR - error:143 - Error creating bulletin: Failed to connect. Probable cause: Unknown
+2025-11-18 08:29:00 - news_automation.main - ERROR - error:143 - Error in bulletin cycle: cannot access local variable 'category' where it is not associated with a value

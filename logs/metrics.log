@@ -1,0 +1,1 @@
+2025-11-18 08:29:00,690 - {"metric": "api_call", "value": 1, "timestamp": "2025-11-18T08:29:00.690269", "api": "news_fetch", "endpoint": "technology", "duration_ms": 72.77083396911621, "success": true}
