@@ -14,5 +14,26 @@ requests
 # For image processing (e.g., slides, thumbnails)
 Pillow==9.5.0
 
-# ✅ For MP3 to WAV conversion
+# For MP3 to WAV conversion
 pydub
+
+# RSS feed parsing
+feedparser
+
+# For streaming and monitoring
+streamlink
+
+# OpenCV for advanced video processing
+opencv-python
+
+# PostgreSQL support (optional - using JSON by default)
+# psycopg2-binary
+
+# Azure Speech SDK (optional)
+# azure-cognitiveservices-speech
+
+# Google Cloud TTS (optional)
+# google-cloud-texttospeech
+
+# Additional utilities
+python-dotenv
