@@ -26,14 +26,24 @@ streamlink
 # OpenCV for advanced video processing
 opencv-python
 
+# Additional utilities
+python-dotenv
+psutil
+
 # PostgreSQL support (optional - using JSON by default)
 # psycopg2-binary
 
-# Azure Speech SDK (optional)
+# Azure Speech SDK (optional - for premium TTS)
 # azure-cognitiveservices-speech
 
-# Google Cloud TTS (optional)
+# Google Cloud TTS (optional - for enterprise TTS)
 # google-cloud-texttospeech
 
-# Additional utilities
-python-dotenv
+# Google Trends (optional - for trending topics)
+# pytrends
+
+# Whisper for speech recognition (optional - for auto captions)
+# openai-whisper
+
+# Translation (optional - for multi-language captions)
+# googletrans==4.0.0-rc1
